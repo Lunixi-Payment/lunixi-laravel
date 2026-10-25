@@ -1,0 +1,13 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    level: 8
+    paths:
+        - src
+    ignoreErrors:
+        # SignsLunixiWebhooks is a helper for the application's own feature tests;
+        # nothing inside the package uses it.
+        -
+            identifier: trait.unused
+            path: src/Testing/SignsLunixiWebhooks.php

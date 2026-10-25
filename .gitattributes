@@ -1,0 +1,6 @@
+# Kept in the repository, left out of the Composer download.
+/tests              export-ignore
+/phpunit.xml.dist   export-ignore
+/phpstan.neon.dist  export-ignore
+/.gitattributes     export-ignore
+/.gitignore         export-ignore

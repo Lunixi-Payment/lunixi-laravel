@@ -1,4 +1,17 @@
+<p align="center">
+  <a href="https://lunixi.com">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Lunixi-Payment/lunixi-laravel/main/.github/assets/lunixi-logo-dark.svg">
+      <img src="https://raw.githubusercontent.com/Lunixi-Payment/lunixi-laravel/main/.github/assets/lunixi-logo.svg" alt="Lunixi" height="64">
+    </picture>
+  </a>
+</p>
+
 # Lunixi for Laravel
+
+[![CI](https://github.com/Lunixi-Payment/lunixi-laravel/actions/workflows/ci.yml/badge.svg)](https://github.com/Lunixi-Payment/lunixi-laravel/actions/workflows/ci.yml) [![Packagist](https://img.shields.io/packagist/v/lunixi/laravel?label=packagist)](https://packagist.org/packages/lunixi/laravel) [![Downloads](https://img.shields.io/packagist/dt/lunixi/laravel)](https://packagist.org/packages/lunixi/laravel/stats) [![Laravel](https://img.shields.io/badge/Laravel-12%20%7C%2013-FF2D20?logo=laravel&logoColor=white)](https://laravel.com) [![PHP](https://img.shields.io/packagist/dependency-v/lunixi/laravel/php)](https://packagist.org/packages/lunixi/laravel) [![License](https://img.shields.io/packagist/l/lunixi/laravel)](LICENSE) [![Docs](https://img.shields.io/badge/docs-docs.lunixi.com-FF6B35)](https://docs.lunixi.com/sdks/laravel)
+
+**[Documentation](https://docs.lunixi.com/sdks/laravel) · [Changelog](https://github.com/Lunixi-Payment/lunixi-laravel/blob/main/CHANGELOG.md) · [Issues](https://github.com/Lunixi-Payment/lunixi-laravel/issues) · [Security](https://github.com/Lunixi-Payment/lunixi-laravel/blob/main/SECURITY.md)**
 
 Laravel integration for the [Lunixi PHP SDK](https://github.com/Lunixi-Payment/lunixi-php#readme) (`lunixi/php-sdk`).
 The SDK does the work — request signing, tokens, retries, idempotency, every

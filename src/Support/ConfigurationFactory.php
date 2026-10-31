@@ -13,7 +13,7 @@ use Lunixi\Sdk\Exception\ConfigurationException;
  */
 final class ConfigurationFactory
 {
-    public const USER_AGENT = 'lunixi-laravel/0.1.0 lunixi-php-sdk';
+    public const USER_AGENT = 'lunixi-laravel/0.1.1 lunixi-php-sdk';
 
     public function __construct(private readonly PrivateKeyResolver $privateKeys)
     {

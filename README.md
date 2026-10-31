@@ -13,7 +13,7 @@
 
 **[Documentation](https://docs.lunixi.com/sdks/laravel) · [Changelog](https://github.com/Lunixi-Payment/lunixi-laravel/blob/main/CHANGELOG.md) · [Issues](https://github.com/Lunixi-Payment/lunixi-laravel/issues) · [Security](https://github.com/Lunixi-Payment/lunixi-laravel/blob/main/SECURITY.md)**
 
-Laravel integration for the [Lunixi PHP SDK](https://github.com/Lunixi-Payment/lunixi-php#readme) (`lunixi/php-sdk`).
+Laravel integration for the [Lunixi PHP SDK](https://github.com/Lunixi-Payment/lunixi-php) (`lunixi/php-sdk`).
 The SDK does the work — request signing, tokens, retries, idempotency, every
 Lunixi API. This package connects it to Laravel:
 
@@ -29,6 +29,11 @@ Lunixi API. This package connects it to Laravel:
 - a test helper that posts signed webhooks
 
 Requirements: PHP 8.2+, Laravel 12 or 13, `ext-sodium`, `ext-curl`, `ext-json`.
+
+This source targets Laravel adapter **0.1.1** with PHP SDK **^0.29.5**. The earlier
+adapter 0.1.0 requires ^0.28, which does not include the SDK's new hosted-URL
+accessor. Check the published tag and Packagist version before deploying this
+update; a source change alone is not a registry release.
 
 ## Installation
 
@@ -123,10 +128,18 @@ $checker->process($batchId);
 
 ## Taking a payment
 
+The existing Blade component renders the Lunixi form on your own website and
+is the default integration path. Enabled methods, installments and multi-card
+eligibility remain controlled by the Lunixi form. There is no package admin UI
+for selecting embedded or hosted mode.
+
 1. **Create the payment intent** when the buyer submits the order. Amounts are
-   integers in the currency's minor unit (kuruş for TRY). Use a new
-   idempotency key for each attempt — the order number alone is not enough,
-   because the buyer may try again with another card.
+   integers in the currency's minor unit (kuruş for TRY). Authorize the customer
+   against the order and protect the checkout POST with Laravel's native CSRF
+   middleware. Reserve the attempt and its original request/key durably before
+   calling Lunixi. Reuse that key after a timeout; changing the card, refreshing
+   the page or switching presentation does not establish a safe new attempt.
+   Resolve uncertain or failed outcomes before permitting another attempt.
 
    ```php
    use Lunixi\Laravel\Facades\Lunixi;
@@ -162,6 +175,13 @@ $checker->process($batchId);
    `'strict-dynamic'` in `script-src` that load is trusted through the nonce,
    otherwise allow the Lunixi CDN host in `script-src`.
 
+   Render only the gateway script received by your authenticated server-side
+   SDK call; never accept markup from a browser parameter. Enforce ownership
+   before reading the saved script, encrypt its token-bearing model attribute
+   at rest, and send `Cache-Control: private, no-store` and
+   `Referrer-Policy: no-referrer`. The component renders HTML; it does not add
+   authorization, CSRF or durable payment orchestration to your application.
+
 3. **The buyer returns** to your `callbackUrl` after 3D Secure. The return
    itself does not prove the payment: show a "payment is being confirmed" page,
    and if you want to show the state, read it with
@@ -174,6 +194,34 @@ $checker->process($batchId);
 
 Capture, void and refund are SDK calls (`payments()->capture()`, `->void()`,
 `->refund()`), each with its own idempotency key.
+
+### Optional server-side redirect
+
+With PHP SDK ^0.29.5 and a backend that returns `paymentPageUrl`, an application
+can explicitly offer hosted checkout instead of rendering the component. Use
+the same saved intent and original attempt; the backend URL may carry a token
+different from the embedded token. The SDK validates its exact HTTPS payment
+origin and path. Do not construct a URL from `token()`.
+
+```php
+use Illuminate\Support\Facades\Gate;
+
+// In your authenticated, CSRF-protected checkout POST; define the order policy.
+Gate::authorize('pay', $order);
+$url = $intent->paymentPageUrl(); // same authenticated create-intent response
+abort_if($url === '', 409, 'Payment session requires reconciliation.');
+
+return redirect()->away($url, 303, [
+    'Cache-Control' => 'private, no-store',
+    'Referrer-Policy' => 'no-referrer',
+]);
+```
+
+If the URL is absent, preserve the attempt and reconcile; do not create another
+intent or key just to obtain a redirect. The embedded form can still be used
+when its original session is valid. Encrypt a saved URL and never log it. A
+browser return remains informational in either mode. Payment links and
+subscription portal redirects are separate products.
 
 ## Webhooks
 

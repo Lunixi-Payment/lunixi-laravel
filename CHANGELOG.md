@@ -2,6 +2,16 @@
 
 All notable changes to `lunixi/laravel`.
 
+## 0.1.1
+
+- Require PHP SDK ^0.29.5 so server-side integrations can read its validated,
+  optional backend `paymentPageUrl`. The existing merchant-page Blade checkout
+  component remains the default presentation; no administrative mode selector
+  or replacement payment form is introduced.
+- Document authenticated, CSRF-protected checkout and the distinction between
+  embedded form tokens and optional hosted URLs. Existing attempt identities
+  must be retained when a response or hosted URL is unavailable.
+
 ## 0.1.0
 
 First release. Requires `lunixi/php-sdk` ^0.28, PHP 8.2+, Laravel 12 or 13.

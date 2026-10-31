@@ -24,6 +24,7 @@ final class CheckoutFormTest extends TestCase
         $intent = new CheckoutIntent(['status' => 'success', 'data' => [
             'paymentId' => 'pay_1',
             'token' => 't_1',
+            'paymentPageUrl' => 'https://pay.lunixi.com/payment/hosted-token-independent-001',
             'checkoutFormContent' => self::SCRIPT,
         ]]);
 
@@ -31,6 +32,7 @@ final class CheckoutFormTest extends TestCase
 
         self::assertStringContainsString('class="lunixi-checkout-form my-form"', $html);
         self::assertStringContainsString(self::SCRIPT, $html);
+        self::assertStringNotContainsString('https://pay.lunixi.com/', $html);
     }
 
     public function test_adds_nonce_to_first_script_tag(): void

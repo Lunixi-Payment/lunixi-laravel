@@ -30,15 +30,16 @@ Lunixi API. This package connects it to Laravel:
 
 Requirements: PHP 8.2+, Laravel 12 or 13, `ext-sodium`, `ext-curl`, `ext-json`.
 
-This source targets Laravel adapter **0.1.1** with PHP SDK **^0.29.5**. The earlier
-adapter 0.1.0 requires ^0.28, which does not include the SDK's new hosted-URL
-accessor. Check the published tag and Packagist version before deploying this
-update; a source change alone is not a registry release.
+Laravel adapter **0.1.1 is published on
+[Packagist](https://packagist.org/packages/lunixi/laravel#0.1.1)** with PHP SDK
+**^0.29.5**. The earlier adapter 0.1.0 requires ^0.28, which does not include the
+SDK's new hosted-URL accessor. Composer resolves the published SDK dependency;
+no VCS override or local SDK source is needed.
 
 ## Installation
 
 ```bash
-composer require lunixi/laravel
+composer require "lunixi/laravel:^0.1.1"
 php artisan lunixi:install
 php artisan lunixi:generate-key
 ```

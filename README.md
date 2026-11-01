@@ -196,7 +196,7 @@ Capture, void and refund are SDK calls (`payments()->capture()`, `->void()`,
 
 ### Optional server-side redirect
 
-With PHP SDK ^0.29.5 and a backend that returns `paymentPageUrl`, an application
+With PHP SDK ^1.0.1 and a backend that returns `paymentPageUrl`, an application
 can explicitly offer hosted checkout instead of rendering the component. Use
 the same saved intent and original attempt; the backend URL may carry a token
 different from the embedded token. The SDK validates its exact HTTPS payment

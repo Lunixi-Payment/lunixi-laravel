@@ -63,8 +63,8 @@ final class WebhookTest extends TestCase
     public function test_tampered_body_answers_400(): void
     {
         $timestamp = gmdate('Y-m-d\TH:i:s\Z');
-        $signed = '{"id":"evt_t","type":"payment.captured","data":{"amount":100}}';
-        $sent = '{"id":"evt_t","type":"payment.captured","data":{"amount":1}}';
+        $signed = '{"id":"evt_t","type":"payment.captured","data":{"amount":"100"}}';
+        $sent = '{"id":"evt_t","type":"payment.captured","data":{"amount":"1"}}';
 
         $this->call('POST', route('lunixi.webhook'), [], [], [], $this->transformHeadersToServerVars([
             WebhookVerifier::HEADER_EVENT_ID => 'evt_t',

@@ -1,4 +1,6 @@
 <p align="center">
+
+> Version 1.0.0 changes all money to canonical minor-unit strings. Read [the migration guide](MIGRATION-1.0.md).
   <a href="https://lunixi.com">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Lunixi-Payment/lunixi-laravel/main/.github/assets/lunixi-logo-dark.svg">
@@ -30,16 +32,12 @@ Lunixi API. This package connects it to Laravel:
 
 Requirements: PHP 8.2+, Laravel 12 or 13, `ext-sodium`, `ext-curl`, `ext-json`.
 
-Laravel adapter **0.1.1 is published on
-[Packagist](https://packagist.org/packages/lunixi/laravel#0.1.1)** with PHP SDK
-**^0.29.5**. The earlier adapter 0.1.0 requires ^0.28, which does not include the
-SDK's new hosted-URL accessor. Composer resolves the published SDK dependency;
-no VCS override or local SDK source is needed.
+Laravel adapter **1.0.0** requires PHP SDK **^1.0.1** and the canonical money-string API. Run the installation after both packages are available on [Packagist](https://packagist.org/packages/lunixi/laravel). Composer resolves the SDK dependency; normal installation needs no VCS override or local SDK source.
 
 ## Installation
 
 ```bash
-composer require "lunixi/laravel:^0.1.1"
+composer require "lunixi/laravel:^1.0"
 php artisan lunixi:install
 php artisan lunixi:generate-key
 ```

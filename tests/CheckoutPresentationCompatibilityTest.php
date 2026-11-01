@@ -84,7 +84,7 @@ final class CheckoutPresentationCompatibilityTest extends TestCase
     private function createIntent(): CheckoutIntent
     {
         return Lunixi::payments()->createIntent(
-            new CreateIntentRequest(1250, 'TRY', 'order-123'),
+            new CreateIntentRequest('1250', 'TRY', 'order-123'),
             'merchant-order-123-attempt-1'
         );
     }

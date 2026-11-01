@@ -32,7 +32,7 @@ Lunixi API. This package connects it to Laravel:
 
 Requirements: PHP 8.2+, Laravel 12 or 13, `ext-sodium`, `ext-curl`, `ext-json`.
 
-Laravel adapter **1.0.0** requires PHP SDK **^1.0.1** and the canonical money-string API. Run the installation after both packages are available on [Packagist](https://packagist.org/packages/lunixi/laravel). Composer resolves the SDK dependency; normal installation needs no VCS override or local SDK source.
+Laravel adapter **1.0.0** requires PHP SDK **^1.0.1** and the canonical money-string API. Both [the adapter](https://packagist.org/packages/lunixi/laravel) and [PHP SDK 1.0.1](https://packagist.org/packages/lunixi/php-sdk) are published on Packagist. Composer resolves the SDK dependency; normal installation needs no VCS override or local SDK source.
 
 ## Installation
 
